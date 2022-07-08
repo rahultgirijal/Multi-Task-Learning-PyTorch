@@ -9,7 +9,7 @@
 import torch
 import collections
 import re
-from torch._six import string_classes, int_classes
+from torch._six import string_classes
 
 _use_shared_memory = False
 r"""Whether to use shared memory in default_collate"""
@@ -57,7 +57,7 @@ def collate_mil(batch):
             py_type = float if elem.dtype.name.startswith('float') else int
             return numpy_type_map[elem.dtype.name](list(map(py_type, batch)))
 
-    elif isinstance(batch[0], int_classes):
+    elif isinstance(batch[0], int):
         return torch.LongTensor(batch)
 
     elif isinstance(batch[0], float):
